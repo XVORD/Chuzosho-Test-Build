@@ -1,0 +1,13 @@
+@import url('../assets/css/styles.css');
+@import url('../assets/css/site-v3.css');
+
+/* The SPA shell must remain vertically scrollable on every route. */
+html, body { overflow-x: hidden; overflow-y: auto; }
+.nav-shell { position: relative; }
+@media (min-width: 901px) {
+  .nav-links { position: absolute; left: 50%; transform: translateX(-50%); }
+}
+@media (max-width: 900px) {
+  .nav-links { position: fixed; left: auto; transform: translateX(100%); }
+  .nav-links.is-open { transform: none; }
+}

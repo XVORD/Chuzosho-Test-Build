@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ISLD turns electrical single line diagrams into structured BOM-ready data.">
+  <title>ISLD | Chuzosho</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./technical-overrides.css">
+  <style>
+    .erp-flow {
+      width: 100%;
+      max-width: none;
+      grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr) 40px minmax(0, 1fr) 40px minmax(0, 1fr);
+      gap: 0;
+      border: 0;
+      padding: 0;
+    }
+
+    .erp-node {
+      min-height: 250px;
+      padding: 2rem 1.8rem;
+      border: 1px solid var(--line);
+      background: var(--paper-bright);
+    }
+
+    .erp-node strong {
+      font-size: clamp(1.25rem, 2.2vw, 2rem);
+    }
+
+    .erp-flow i {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--red);
+      position: relative;
+    }
+
+    .erp-flow i::after {
+      content: '';
+      position: absolute;
+      right: -1px;
+      top: -7px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 11px solid var(--red);
+    }
+
+    @media (max-width:900px) {
+      .erp-flow {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .erp-node {
+        min-height: 170px;
+      }
+
+      .erp-flow i {
+        width: 3px;
+        height: 34px;
+        margin: 0 auto;
+      }
+
+      .erp-flow i::after {
+        right: auto;
+        left: -7px;
+        top: auto;
+        bottom: -1px;
+        border-top: 11px solid var(--red);
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+        border-bottom: 0;
+      }
+    }
+
+    .section-dark .foundry-track .track-step {
+      min-height: 300px;
+      padding: 1.75rem;
+    }
+
+    @media (max-width:600px) {
+      .section-dark .foundry-track .track-step {
+        min-height: 240px;
+        padding: 1.5rem;
+      }
+    }
+
+    .section-dark .track-step {
+      cursor: pointer;
+      transition: background .3s ease, color .3s ease, transform .3s ease;
+    }
+
+    .cta-band img {
+      opacity: .65;
+    }
+
+    .decision-section {
+      background: var(--paper-bright);
+      border-top: 1px solid var(--line);
+    }
+
+    .decision-section .signal {
+      min-height: 190px;
+      justify-content: flex-start;
+      gap: 1rem;
+      cursor: pointer;
+      transition: min-height .35s ease, background .3s ease;
+    }
+
+    .decision-section .signal h3 {
+      margin: 0;
+    }
+
+    .decision-section .signal p {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin: 0;
+      transition: max-height .4s ease, opacity .3s ease, margin .3s ease;
+    }
+
+    .decision-section .signal:hover,
+    .decision-section .signal:focus-visible {
+      min-height: 255px;
+      background: var(--paper);
+    }
+
+    .decision-section .signal:hover p,
+    .decision-section .signal:focus-visible p {
+      max-height: 130px;
+      opacity: 1;
+      margin-top: auto;
+    }
+
+    .erp-flow i {
+      background: linear-gradient(90deg, var(--ink) 0 38%, var(--red) 50%, var(--ink) 62%);
+      background-size: 220% 100%;
+      animation: erpSignal 2.8s ease-in-out infinite;
+    }
+
+    .erp-flow i:nth-of-type(2) {
+      animation-delay: .7s;
+    }
+
+    .erp-flow i:nth-of-type(3) {
+      animation-delay: 1.4s;
+    }
+
+    .erp-flow .erp-node {
+      animation: erpNode 2.8s ease-in-out infinite;
+    }
+
+    .erp-flow .erp-node:nth-of-type(2) {
+      animation-delay: .7s;
+    }
+
+    .erp-flow .erp-node:nth-of-type(3) {
+      animation-delay: 1.4s;
+    }
+
+    .erp-flow .erp-node:nth-of-type(4) {
+      animation-delay: 2.1s;
+    }
+
+    @keyframes erpSignal {
+
+      0%,
+      20% {
+        background-position: 100% 0;
+      }
+
+      55%,
+      75% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 100% 0;
+      }
+    }
+
+    @keyframes erpNode {
+
+      0%,
+      18%,
+      100% {
+        border-color: var(--line);
+        box-shadow: none;
+      }
+
+      38%,
+      62% {
+        border-color: var(--red);
+        box-shadow: 0 0 0 4px rgba(199, 55, 47, .12);
+      }
+    }
+
+    .erp-flow .erp-node,
+    .erp-flow i {
+      opacity: 0;
+      transform: translateX(-24px);
+      animation: erpReveal .65s cubic-bezier(.2, .75, .2, 1) forwards;
+    }
+
+    .erp-flow .erp-node:nth-of-type(1) {
+      animation-delay: .1s;
+    }
+
+    .erp-flow i:nth-of-type(1) {
+      animation-delay: .7s;
+    }
+
+    .erp-flow .erp-node:nth-of-type(2) {
+      animation-delay: 1.2s;
+    }
+
+    .erp-flow i:nth-of-type(2) {
+      animation-delay: 1.8s;
+    }
+
+    .erp-flow .erp-node:nth-of-type(3) {
+      animation-delay: 2.3s;
+    }
+
+    .erp-flow i:nth-of-type(3) {
+      animation-delay: 2.9s;
+    }
+
+    .erp-flow .erp-node:nth-of-type(4) {
+      animation-delay: 3.4s;
+    }
+
+    @keyframes erpReveal {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .decision-section .signal,
+      .decision-section .signal p {
+        transition: none;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      .erp-flow i,
+      .erp-flow .erp-node {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .cta-band:after {
+      background: linear-gradient(90deg, rgba(10, 10, 9, .82), rgba(10, 10, 9, .10));
+    }
+
+    .editorial-image,
+    .diagram-band img {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center;
+      background: #e8e2d7;
+      padding: 0;
+    }
+
+    .section-dark .foundry-track {
+      align-items: stretch;
+    }
+
+    .section-dark .foundry-track .track-step {
+      height: 300px;
+      min-height: 300px;
+    }
+
+    .section-dark .track-step:hover,
+    .section-dark .track-step:focus-visible,
+    .section-dark .track-step.is-active {
+      background: rgba(255, 255, 255, .07);
+      transform: translateY(-5px);
+    }
+
+    @media (max-width:900px) {
+      .section-dark .foundry-track .track-step {
+        height: 280px;
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width:600px) {
+      .section-dark .foundry-track .track-step {
+        height: 240px;
+        min-height: 240px;
+      }
+    }
+  </style>
+  <script defer src="./script.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Chuzosho home"><span class="brand-mark" aria-hidden="true">CZ</span><span
+          class="brand-name">CHUZOSHO</span></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation"
+        aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a class="nav-link" href="#what-is-isld">Overview</a>
+        <a class="nav-link" href="#workflow">Workflow</a>
+        <a class="nav-link" href="#output">Output</a>
+        <a class="nav-cta" href="#contact">Start a conversation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero page-hero" id="top">
+      <img class="hero-media" src="./assets/Hero%20Banner.png"
+        alt="Technical electrical single line diagram workspace with switchgear, transformers and copper busbars">
+      <div class="hero-content">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">Chuzosho / Product concept 04</p>
+            <h1>Read the line.<br>Build the list.</h1>
+            <p class="hero-copy">ISLD turns electrical Single Line Diagrams into structured, quotation-ready component
+              data.</p>
+            <div class="hero-actions"><a class="button button-primary" href="#workflow">See the workflow</a></div>
+          </div>
+          <p class="hero-index">ISLD / AI-ASSISTED<br>Diagram intelligence</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero-brief" id="what-is-isld">
+      <div class="section-shell hero-brief-grid">
+        <div>
+          <p class="eyebrow">What is ISLD?</p>
+          <p class="hero-brief-copy">A digital, AI-based solution for processing electrical Single Line Diagrams — the
+            2D representations that describe a panel or circuit board.</p>
+        </div>
+        <p class="hero-index">INPUT / SLD<br>OUTPUT / STRUCTURED DATA</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-shell">
+        <div class="manifesto" data-reveal>
+          <p class="manifesto-label">The signal inside the drawing</p>
+          <p class="manifesto-copy">MCBs, fuses, CTs, digital power meters and every associated rating become
+            information you can use.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="workflow">
+      <div class="section-shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Simplified workflow</p>
+            <h2 class="section-title">From one line to a complete commercial picture.</h2>
+          </div>
+          <p class="section-intro">ISLD detects electrical components, extracts the relevant detail and gives the
+            estimator a clean foundation for the next decision.</p>
+        </div>
+        <div class="foundry-track" aria-label="ISLD workflow stages">
+          <article class="track-step" data-step="input" data-reveal tabindex="0" role="button" aria-pressed="false">
+            <span class="step-num">01 / INPUT</span>
+            <div>
+              <h3>Single Line Diagram</h3>
+              <p>Start with the electrical drawing that defines the panel or project.</p>
+            </div>
+          </article>
+          <article class="track-step" data-step="detect" data-reveal data-reveal-delay="1" tabindex="0" role="button"
+            aria-pressed="false"><span class="step-num">02 / DETECT</span>
+            <div>
+              <h3>Component detection</h3>
+              <p>Identify the electrical symbols and components in the diagram.</p>
+            </div>
+          </article>
+          <article class="track-step" data-step="extract" data-reveal data-reveal-delay="2" tabindex="0" role="button"
+            aria-pressed="false"><span class="step-num">03 / EXTRACT</span>
+            <div>
+              <h3>Text &amp;<br>details</h3>
+              <p>Read names, ratings and the associated information around each component.</p>
+            </div>
+          </article>
+          <article class="track-step" data-step="structure" data-reveal data-reveal-delay="3" tabindex="0" role="button"
+            aria-pressed="false"><span class="step-num">04 / STRUCTURE</span>
+            <div>
+              <h3>BOM to quotation</h3>
+              <p>Convert extracted data into a BOM for customer quotation.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section erp-section" id="erp">
+      <div class="section-shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">ERP integration layer</p>
+            <h2 class="section-title">A live electrical data path into the system of record.</h2>
+          </div>
+          <p class="section-intro">ISLD structures extracted components as machine-readable records, ready to
+            synchronize with ERP material masters, inventory and project costing.</p>
+        </div>
+        <div class="erp-flow" data-reveal>
+          <div class="erp-node"><span>01</span><strong>SLD INGEST</strong><small>PDF / DWG / IMAGE</small></div><i></i>
+          <div class="erp-node"><span>02</span><strong>ISLD ENGINE</strong><small>DETECT · OCR · VALIDATE</small></div>
+          <i></i>
+          <div class="erp-node"><span>03</span><strong>ERP CONNECTOR</strong><small>API / JSON / CSV</small></div>
+          <i></i>
+          <div class="erp-node"><span>04</span><strong>PROJECT RECORD</strong><small>BOM · STOCK · COST</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="editorial-split" id="output">
+      <img class="editorial-image" src="./assets/SLD_Test.png"
+        alt="Electrical single line diagram showing feeder protection and highlighted SSOL circuits" loading="lazy">
+      <div class="editorial-panel">
+        <p class="eyebrow">Main purpose</p>
+        <h2>Make diagrams operational.</h2>
+        <p>ISLD extracts useful information from electrical drawings and turns it into structured data. The resulting
+          Bill of Materials gives teams a reliable view of the components that need to be supplied.</p>
+      </div>
+    </section>
+
+    <section class="section decision-section">
+      <div class="section-shell">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">From data to decision</p>
+            <h2 class="section-title">A clearer route to a customer quotation.</h2>
+          </div>
+          <p class="section-intro">The Bill of Materials supports estimating the cost of an electrical panel or building
+            project, while clearly specifying what will be provided.</p>
+        </div>
+        <div class="signal-grid">
+          <article class="signal" data-reveal tabindex="0"><span class="step-num">BOM / 01</span>
+            <div>
+              <h3>Components, captured.</h3>
+              <p>Organise detected items with their names, ratings and relevant details.</p>
+            </div>
+          </article>
+          <article class="signal" data-reveal data-reveal-delay="1" tabindex="0"><span class="step-num">QUOTE /
+              02</span>
+            <div>
+              <h3>Costs, estimated.</h3>
+              <p>Use the material list as the basis for preparing a clear customer quotation.</p>
+            </div>
+          </article>
+          <article class="signal" data-reveal data-reveal-delay="2" tabindex="0"><span class="step-num">SCOPE /
+              03</span>
+            <div>
+              <h3>Supply, specified.</h3>
+              <p>Show the components included for an electrical panel or wider building project.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="diagram-band">
+      <img src="./assets/SLD%20(16Blks)_page-0041_dfine_manual_3x3.jpg"
+        alt="Full electrical single line diagram used for ISLD model training" loading="lazy">
+      <div class="diagram-copy">
+        <p class="eyebrow">Development loop</p>
+        <h2>Teach the model what matters.</h2>
+        <p>Today, ISLD development includes annotating electrical components in diagrams. These examples teach the
+          machine-learning model the patterns it needs to recognise components automatically.</p>
+      </div>
+    </section>
+
+    <section class="cta-band" id="contact">
+      <img src="./assets/Banner%20conversation.png"
+        alt="Electrical single line diagram flowing into a Bill of Materials" loading="lazy">
+      <div class="cta-content">
+        <p class="eyebrow">ISLD in one sentence</p>
+        <h2>AI-assisted diagram intelligence for more confident estimates.</h2>
+        <a class="button button-primary" href="mailto:hello@chuzosho.com">Start a conversation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-shell">
+      <div class="footer-top">
+        <div class="footer-brand"><a class="brand" href="#top"><span
+              class="brand-mark">CZ</span><span>CHUZOSHO</span></a>
+          <p>A HOSHŌ DIGITAL Company.</p>
+        </div>
+        <div class="footer-nav">
+          <div>
+            <h3>Product</h3><a href="#what-is-isld">Overview</a><a href="#workflow">Workflow</a>
+          </div>
+          <div>
+            <h3>Output</h3><a href="#output">Bill of Materials</a><a href="#contact">Quotation</a>
+          </div>
+          <div>
+            <h3>Connect</h3><a href="mailto:hello@chuzosho.com">Contact</a><a href="https://hoshodigital.com/">HOSHŌ
+              DIGITAL</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Chuzosho.</span><span>A HOSHŌ DIGITAL Company.</span></div>
+    </div>
+  </footer>
+</body>
+
+</html>

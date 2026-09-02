@@ -1,0 +1,25 @@
+{
+  "name": "chuzosho",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": ".",
+  "type": "module",
+  "description": "Chuzosho, a Hosho Digital company that turns proven solution work into focused B2B products.",
+  "scripts": {
+    "dev": "node tools/preview-server.mjs",
+    "check": "node tools/check-site.mjs",
+    "generate:pages": "node scripts/generate-pages.mjs",
+    "dev:react": "npm run generate:pages && vite",
+    "build": "npm run generate:pages && vite build",
+    "preview:react": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

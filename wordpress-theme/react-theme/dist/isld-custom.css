@@ -1,0 +1,50 @@
+/* Route-scoped assets for the custom ISLD product page. */
+@import url('./isld-base.css');
+@import url('./isld-overrides.css');
+
+/* ISLD ERP layer: dark technical sequence inspired by the reference flow. */
+.erp-section { background: #071522; color: #f7f5ef; border-top: 0; }
+.erp-section .section-intro { color: rgba(247,245,239,.72); }
+.erp-flow { width: 100%; max-width: none; display: grid; grid-template-columns: minmax(0,1fr) 40px minmax(0,1fr) 40px minmax(0,1fr) 40px minmax(0,1fr); gap: 0; border: 0; padding: 0; align-items: center; }
+.erp-node { min-height: 250px; padding: 2rem 1.8rem; display: flex; flex-direction: column; justify-content: space-between; background: #122231; border: 1px solid #465666; color: #f7f5ef; opacity: 0; transform: translateX(-24px); animation: erpReveal .65s cubic-bezier(.2,.75,.2,1) forwards, erpPulse 4s ease-in-out infinite; }
+.erp-node span { color: #aeb9c3; font: 700 .72rem var(--mono); }
+.erp-node strong { font-size: clamp(1.25rem,2.2vw,2rem); letter-spacing: -.04em; }
+.erp-node small { color: #aeb9c3; font: .65rem var(--mono); letter-spacing: .08em; }
+.erp-flow i { display: block; width: 100%; height: 3px; position: relative; background: #b63b3b; opacity: 0; transform: scaleX(0); transform-origin: left center; animation: erpArrow .45s ease forwards; }
+.erp-flow i::after { content: ''; position: absolute; right: -1px; top: -7px; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 11px solid #b63b3b; }
+.erp-node:nth-child(1) { animation-delay: .1s, 3.4s; }
+.erp-flow i:nth-child(2) { animation-delay: .75s; }
+.erp-node:nth-child(3) { animation-delay: 1.2s, 3.9s; }
+.erp-flow i:nth-child(4) { animation-delay: 1.85s; }
+.erp-node:nth-child(5) { animation-delay: 2.3s, 4.4s; }
+.erp-flow i:nth-child(6) { animation-delay: 2.95s; }
+.erp-node:nth-child(7) { animation-delay: 3.4s, 4.9s; }
+@keyframes erpReveal { to { opacity: 1; transform: none; } }
+@keyframes erpArrow { to { opacity: 1; transform: scaleX(1); } }
+@keyframes erpPulse { 0%,100% { border-color:#465666; } 50% { border-color:#b63b3b; } }
+.decision-section .signal { min-height: 190px; justify-content: flex-start; gap: 1rem; cursor: pointer; transition: min-height .35s ease, background .3s ease; }
+.decision-section .signal p { max-height: 0; opacity: 0; overflow: hidden; margin: 0; transition: max-height .4s ease, opacity .3s ease, margin .3s ease; }
+.decision-section .signal:hover, .decision-section .signal:focus-visible, .decision-section .signal.is-active { min-height: 255px; background: var(--paper); }
+.decision-section .signal:hover p, .decision-section .signal:focus-visible p, .decision-section .signal.is-active p { max-height: 130px; opacity: 1; margin-top: auto; }
+@media (max-width: 900px) {
+  .erp-flow { grid-template-columns: 1fr; gap: 0; }
+  .erp-node { min-height: 170px; }
+  .erp-flow i { width: 3px; height: 34px; margin: 0 auto; transform: scaleY(0); transform-origin: top center; }
+  .erp-flow i::after { right: auto; left: -7px; top: auto; bottom: -1px; border-top: 11px solid #b63b3b; border-right: 8px solid transparent; border-left: 8px solid transparent; border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .erp-node, .erp-flow i { animation: none; opacity: 1; transform: none; }
+}
+
+/* Keep the original ISLD paper palette for the ERP integration layer. */
+.page-isld-custom .section-dark .foundry-track .track-step { height: 240px; min-height: 240px; }
+.erp-section { background: #e8e2d7; color: var(--ink); border-top: 1px solid var(--line); }
+.erp-section .section-intro { color: var(--muted); }
+.erp-node { background: var(--paper-bright); border-color: var(--line); color: var(--ink); }
+.erp-node span, .erp-node small { color: var(--muted); }
+.erp-flow i { background: var(--red); }
+.erp-flow i::after { border-left-color: var(--red); }
+@media (max-width: 900px) {
+  .erp-flow i::after { border-top-color: var(--red); }
+  .page-isld-custom .section-dark .foundry-track .track-step { height: 220px; min-height: 220px; }
+}
