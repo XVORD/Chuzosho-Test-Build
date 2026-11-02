@@ -24,8 +24,7 @@ class SiteHeader extends HTMLElement {
       <header class="site-header" data-header>
         <div class="nav-shell">
           <a class="brand" href="/" aria-label="Chuzosho homepage">
-            <span class="brand-mark" aria-hidden="true">CZ</span>
-            <span class="brand-name">CHUZOSHO</span>
+            <img class="brand-logo" src="/assets/chuzosho-logo-with-text.png" alt="CHUZOSHO">
           </a>
           <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -74,8 +73,8 @@ class SiteFooter extends HTMLElement {
         <div class="footer-shell">
           <div class="footer-top">
             <div class="footer-brand">
-              <a class="brand" href="/" aria-label="Chuzosho homepage"><span class="brand-mark" aria-hidden="true">CZ</span><span>CHUZOSHO</span></a>
-              <p>A Hosho Digital Company.</p>
+              <a class="brand" href="/" aria-label="Chuzosho homepage"><img class="brand-logo brand-logo--footer" src="/assets/chuzosho-logo-with-text.png" alt="CHUZOSHO"></a>
+              <p>A HOSHŌ DIGITAL Company.</p>
               <div class="footer-socials" aria-label="Social media">
                 <a href="https://www.linkedin.com/company/hoshodigital" target="_blank" rel="noreferrer">LinkedIn</a>
                 <a href="https://x.com/HoshoDigital" target="_blank" rel="noreferrer">X</a>

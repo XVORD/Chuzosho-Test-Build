@@ -24,8 +24,7 @@ class SiteHeader extends HTMLElement {
       <header class="site-header" data-header>
         <div class="nav-shell">
           <a class="brand" href="/" aria-label="Chuzosho homepage">
-            <span class="brand-mark" aria-hidden="true">CZ</span>
-            <span class="brand-name">CHUZOSHO</span>
+            <img class="brand-logo" src="/assets/chuzosho-logo-with-text.png" alt="CHUZOSHO">
           </a>
           <button class="nav-toggle" type="button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded="false">
             <span></span><span></span><span></span>
@@ -74,8 +73,8 @@ class SiteFooter extends HTMLElement {
         <div class="footer-shell">
           <div class="footer-top">
             <div class="footer-brand">
-              <a class="brand" href="/" aria-label="Chuzosho homepage"><span class="brand-mark" aria-hidden="true">CZ</span><span>CHUZOSHO</span></a>
-              <p>A Hosho Digital Company.</p>
+              <a class="brand" href="/" aria-label="Chuzosho homepage"><img class="brand-logo brand-logo--footer" src="/assets/chuzosho-logo-with-text.png" alt="CHUZOSHO"></a>
+              <p>A HOSHŌ DIGITAL Company.</p>
               <div class="footer-socials" aria-label="Social media">
                 <a href="https://www.linkedin.com/company/hoshodigital" target="_blank" rel="noreferrer">LinkedIn</a>
                 <a href="https://x.com/HoshoDigital" target="_blank" rel="noreferrer">X</a>
@@ -85,7 +84,7 @@ class SiteFooter extends HTMLElement {
             </div>
             <div class="footer-nav">
               <div><h2>Foundry</h2><a href="/about/">About</a><a href="/approach/">Approach</a><a href="/partnership/">Partnership</a></div>
-              <div><h2>Solutions</h2><a href="/solutions/isld/">ISLD</a><a href="/solutions/iprocure/">IProcure</a><a href="/solutions/igrc/">IGRC</a></div>
+              <div><h2>Solutions</h2><a href="/solutions/isld/">iSLD</a><a href="/solutions/iprocure/">iPROCURE</a><a href="/solutions/igrc/">iGRC</a></div>
               <div><h2>Contact</h2><a href="/contact/">Contact Us</a></div>
             </div>
           </div>

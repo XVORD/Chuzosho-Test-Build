@@ -11,3 +11,42 @@ html, body { overflow-x: hidden; overflow-y: auto; }
   .nav-links { position: fixed; left: auto; transform: translateX(100%); }
   .nav-links.is-open { transform: none; }
 }
+
+/* iGRC uses its own product layout, but its type must remain consistent with
+   the main Chuzosho site. Keep this override last so the product's embedded
+   legacy styles cannot replace the shared typography. */
+body.page-igrc,
+body.page-igrc .wrap,
+body.page-igrc .hero-sub,
+body.page-igrc .support,
+body.page-igrc .evidence-copy p {
+  font-family: var(--sans) !important;
+  line-height: 1.55 !important;
+}
+body.page-igrc h1,
+body.page-igrc h2,
+body.page-igrc h3,
+body.page-igrc h4 {
+  font-family: var(--sans) !important;
+  font-weight: 790 !important;
+  letter-spacing: -.055em !important;
+  line-height: .94 !important;
+}
+/* Keep the product-specific layout, but use the same neutral sans face as iSLD. */
+body.page-igrc .hero-igrc,
+body.page-igrc .hero-igrc *,
+body.page-igrc .sect-light,
+body.page-igrc .sect-paper,
+body.page-igrc .sect-dark,
+body.page-igrc .final-cta {
+  font-family: var(--sans) !important;
+}
+body.page-igrc .hero-igrc .hero-label {
+  display: none !important;
+}
+body.page-igrc .hero-igrc h1 {
+  font-size: clamp(3.4rem, 8.5vw, 8.7rem) !important;
+}
+body.page-igrc .section-head h2 {
+  font-size: clamp(2.8rem, 6vw, 6.4rem) !important;
+}

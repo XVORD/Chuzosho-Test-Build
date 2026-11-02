@@ -348,33 +348,38 @@ h1, .display {
   position: relative;
   padding: clamp(1.6rem,3.5vw,3.5rem);
   border: 1px solid rgba(255,255,255,.24);
-  border-top: 6px solid var(--red);
+  border-top: 1px solid rgba(255,255,255,.24);
   color: var(--white);
   background: linear-gradient(145deg,rgba(17,17,15,.82),rgba(30,26,22,.62));
   box-shadow: 0 32px 90px rgba(0,0,0,.38);
   backdrop-filter: blur(18px);
 }
 .page-contact .contact-form--glass::before {
-  content: "CHUZOSHO / PRODUCT INTAKE";
-  grid-column: 1 / -1;
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid rgba(255,255,255,.18);
-  color: #ff6b60;
-  font: 700 .72rem/1 var(--mono);
-  letter-spacing: .14em;
+  content: none;
+}
+/* Keep the Foundry “The idea” mark visible while its content column scrolls. */
+@media (min-width: 901px) {
+  .page-about .origin-layout { align-items: stretch; }
+  .page-about .origin-word {
+    position: sticky !important;
+    top: 7rem;
+    align-self: flex-start;
+    height: fit-content;
+  }
 }
 .page-contact .contact-form--glass .field label { color: rgba(255,253,247,.84); }
 .page-contact .contact-form--glass .field input,
 .page-contact .contact-form--glass .field select,
 .page-contact .contact-form--glass .field textarea {
   min-height: 54px;
-  padding: .85rem 0;
-  border-bottom-color: rgba(255,255,255,.48);
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255,255,255,.48);
+  line-height: 1.45;
   color: var(--white);
   background: transparent;
   outline: 0;
 }
-.page-contact .contact-form--glass .field textarea { min-height: 126px; }
+.page-contact .contact-form--glass .field textarea { min-height: 140px; }
 .page-contact .contact-form--glass .field :is(input,select,textarea):focus { border-bottom-color: #ff6b60; }
 .page-contact .contact-form--glass .field textarea::placeholder { color: rgba(255,253,247,.5); }
 .page-contact .contact-form--glass .field select option { color: var(--ink); background: var(--paper-bright); }

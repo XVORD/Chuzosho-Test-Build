@@ -94,6 +94,8 @@ p { text-wrap: pretty; }
   border: 2px solid currentColor;
   font-family: var(--mono);
   font-size: 0.7rem;
+  background: #050505 url('../chuzosho-logo-only.png') center / 82% 82% no-repeat;
+  color: transparent;
 }
 .brand-mark::before,
 .brand-mark::after {
@@ -103,6 +105,8 @@ p { text-wrap: pretty; }
 }
 .brand-mark::before { width: 17px; height: 2px; }
 .brand-mark::after { width: 2px; height: 17px; }
+.brand-mark::before,
+.brand-mark::after { display: none; }
 .brand-name { font-size: 1rem; }
 .nav-links {
   display: flex;
@@ -379,7 +383,12 @@ p { text-wrap: pretty; }
   font-family: var(--mono);
   font-size: clamp(4rem, 10vw, 10rem);
   letter-spacing: -0.08em;
+  height: min(72vh, 760px);
+  min-height: 560px;
+  background: url('../Chuzosho-The-Idea.png') center top / contain no-repeat;
+  font-size: 0;
 }
+.origin-word img { display: block; width: 100%; height: min(72vh, 760px); min-height: 560px; object-fit: contain; object-position: top center; }
 .origin-copy .lead { font-size: clamp(2rem, 4vw, 4.3rem); line-height: 1.04; letter-spacing: -0.045em; }
 .origin-copy p:not(.lead) { max-width: 58ch; color: var(--muted); font-size: 1.08rem; }
 .principle-ledger { border-top: 1px solid var(--line-light); }
@@ -569,9 +578,10 @@ p { text-wrap: pretty; }
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(520px, 1.22fr);
+  grid-template-columns: minmax(0, 920px);
   gap: clamp(3rem, 8vw, 8rem);
   align-items: center;
+  justify-content: center;
 }
 .contact-intro h1 {
   max-width: 8ch;
@@ -585,7 +595,13 @@ p { text-wrap: pretty; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
 }
+
+.brand-logo { display: block; width: clamp(130px, 10vw, 174px); height: 46px; object-fit: cover; object-position: center 50%; }
+.brand-logo--footer { width: 174px; }
 .contact-form--glass {
   padding: clamp(1.5rem, 4vw, 3.5rem);
   background: rgba(13, 12, 10, 0.58);
@@ -593,6 +609,7 @@ p { text-wrap: pretty; }
   backdrop-filter: blur(18px);
 }
 .field { display: grid; gap: 0.5rem; }
+.required-mark { color: var(--red); margin-left: 0.2rem; }
 .field-full { grid-column: 1 / -1; }
 .field label { font: 700 0.72rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
 .field input,
@@ -600,15 +617,15 @@ p { text-wrap: pretty; }
 .field textarea {
   width: 100%;
   min-height: 54px;
-  padding: 0.85rem 0;
+  padding: 1rem 1.1rem;
+  line-height: 1.45;
   color: var(--white);
   background: transparent;
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 2px;
 }
 .field select { color-scheme: dark; }
-.field textarea { min-height: 120px; resize: vertical; }
+.field textarea { min-height: 140px; resize: vertical; }
 .field input:focus,
 .field select:focus,
 .field textarea:focus { border-bottom-color: var(--red); outline: 0; }
@@ -764,7 +781,8 @@ p { text-wrap: pretty; }
   .footer-top { grid-template-columns: 1fr; }
   .hero-index { justify-self: start; }
   .statement-copy { padding-top: 0; }
-  .origin-word { position: static; }
+  .origin-word { position: static; height: 560px; min-height: 0; background: none; }
+  .origin-word img { height: 560px; min-height: 0; }
   .graduation-band img,
   .solution-feature:nth-child(even) .solution-visual { order: 0; }
   .graduation-band img { min-height: 420px; }
@@ -817,4 +835,18 @@ p { text-wrap: pretty; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   [data-reveal] { opacity: 1; transform: none; }
+}
+.page-isld-custom .erp-flow img,
+.page-isld-custom .erp-flow .erp-stage-image {
+  width: 100%;
+  height: 220px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: center;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .page-isld-custom .erp-flow img,
+  .page-isld-custom .erp-flow .erp-stage-image { height: clamp(150px, 42vw, 220px); }
 }
